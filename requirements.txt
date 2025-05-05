@@ -1,0 +1,11 @@
+matplotlib
+numpy
+oauthlib
+openpyxl
+pandas
+pillow
+scikit-learn
+scipy
+six
+prophet
+neuralprophet

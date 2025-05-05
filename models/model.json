@@ -1,0 +1,130 @@
+{   
+    "default-settings": false,
+    "custom_hyper_parameters":{
+        "prophet":{
+            "n_changepoints": 40,
+            "daily_seasonality": true,
+            "weekly_seasonality": false,
+            "yearly_seasonality": false,
+            "seasonality_mode":"multiplicative",
+            "seasonality_prior_scale": 5.0,
+            "changepoint_range": 0.95,
+            "changepoint_prior_scale": 0.7
+        },
+        "neuralprophet":{
+            "n_changepoints": 30,
+            "n_forecasts": 12,
+            "n_lags": 0,
+            "changepoints_range": 0.90,
+            "seasonality_mode":"additive",
+            "seasonality_reg": 200,
+            "yearly_seasonality": false,
+            "weekly_seasonality": false,
+            "daily_seasonality": false,
+            "impute_missing" : true,
+            "lagged_reg_layers": 2000,
+            "optimizer":"AdamW",
+            "season_global_local": "global",
+            "ar_reg": 10,
+            "trend_reg": 2,
+            "trend_reg_threshold": false,
+            "trend_global_local": "global",
+            "growth": "linear",
+            "accelerator": "gpu",
+            "normalize": "off",
+            "global_normalization": "False", 
+            "global_time_normalization": "False",  
+            "unknown_data_normalization": "False"  
+        },
+        "sarimax":{
+            "enforce_stationarity":true,
+            "enforce_invertibility":true,
+            "seasonal_order":[4,0,4,30],
+            "order":[6,1,0]
+        },
+        "arima":{
+            "enforce_stationarity":true,
+            "enforce_invertibility":true,
+            "order":[2,2,2]
+        }
+    },
+    "hyper-parameters-tuning":{
+        "dataset-usage":[1],
+        "prophet": {
+            "cross_validation":{
+                "period":["10 days"],
+                "horizon":["12 days"]
+            },
+            "grid":{
+                "changepoint_prior_scale": [0.7, 0.8, 0.90, 0.95, 1.0],
+                "seasonality_prior_scale": [0.001, 0.1, 1.0],
+                "seasonality_mode": ["additive", "multiplicative"],
+                "changepoint_range": [0.85, 0.90, 0.95]
+            }   
+        },
+        "neuralprophet":{
+            "cross_validation":{
+                "period":[10],
+                "horizon":[12]
+            },
+            "grid":{
+                "n_changepoints":[30, 50],
+                "changepoints_range": [0.001, 100],
+                "seasonality_mode":["additive", "multiplicative"],
+                "yearly_seasonality": [false, true],
+                "weekly_seasonality": [false],
+                "daily_seasonality": [true, false],
+                "n_forecasts": [12],
+                "n_lags": [0],
+                "seasonality_reg": [0.001, 150],
+                "season_global_local": ["global"],
+                "impute_missing" : [true],
+                "lagged_reg_layers":[0.001, 10],
+                "optimizer":["SGD"],
+                "ar_reg": [10, 100],
+                "trend_reg": [150, 200],
+                "trend_reg_threshold": [false],
+                "trend_global_local": ["global"],
+                "growth": ["linear"],
+                "accelerator": ["gpu"],
+                "normalize": ["off"],
+                "global_normalization": ["False"], 
+                "global_time_normalization": ["False"],  
+                "unknown_data_normalization": ["False"] 
+               
+            }
+        },
+        "arima":{
+            "cross_validation":{
+                "period":[10],
+                "horizon":[12]
+            },
+            "grid":{
+                "order":{
+                    "p": [0, 1,2,3,4, 5, 7 , 8, 9, 10, 11, 12],
+                    "d": [0, 1, 2, 3, 4],
+                    "q": [0, 5, 10, 15]
+                }
+            }
+        },
+        "sarimax":{
+            "cross_validation":{
+                "period":[10],
+                "horizon":[12]
+            },
+            "grid":{
+                "order": {
+                    "p": [0, 1, 2],
+                    "d": [0, 1],
+                    "q": [0, 1, 2]
+                },
+                "seasonal_order":{
+                    "P": [0, 1],
+                    "D": [0, 1],
+                    "Q": [0, 1],
+                    "M": [7, 30]
+                }
+            } 
+        }
+    }
+}
